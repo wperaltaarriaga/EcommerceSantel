@@ -1,16 +1,24 @@
-# React + Vite
+# Mi E-commerce (Semana 2 - React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto de práctica con React + Vite, enfocado en manejo de estado con `useState` y comunicación entre componentes vía props.
 
-Currently, two official plugins are available:
+## Componentes y manejo de estado
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### `NavBar`
+No maneja estado propio. Recibe `title` y `subtitle` como props para reutilizarse con distinto contenido en cada sección.
 
-## React Compiler
+### `Counter`
+- Estado: `cantidad` (número), inicializado en `0`.
+- `handleSumar` / `handleRestar` actualizan el estado con la forma funcional (`setCantidad(prev => prev + 1)`) para evitar problemas de valores desactualizados en actualizaciones consecutivas.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### `ProductCard`
+- Estado `cantidad` (número, inicial `1`): se incrementa/decrementa con `sumarCantidad` / `restarCantidad`, ambas usando el setter funcional. `restarCantidad` valida que nunca baje de `0`.
+- Estado `esFavorito` (booleano, inicial `false`): se invierte con `toggleFavorite` usando `setEsFavorito(prev => !prev)`.
+- El botón de favorito cambia de clase CSS (`favInactivo` / `favActivo`) según el valor del estado, sin mutar directamente ninguna variable.
 
-## Expanding the ESLint configuration
+## Cómo correr el proyecto
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+\`\`\`bash
+npm install
+npm run dev
+\`\`\`
