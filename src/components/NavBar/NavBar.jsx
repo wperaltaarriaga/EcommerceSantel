@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
+import styles from "./NavBar.module.css";
 
-function NavBar() {
+
+const NavBar = ({
+  title = "Title por defecto",
+  subtitle = "Soy un sub con una prop por defecto",
+}) => {
   return (
-    <div>NavBar</div>
-  )
-}
+    <nav className={styles.nav}>
+      <h1>{title}</h1>
+      <h2>{subtitle}</h2>
+    </nav>
+  );
+};
 
-export default NavBar
+export default NavBar;

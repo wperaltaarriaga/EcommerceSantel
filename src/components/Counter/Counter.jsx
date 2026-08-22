@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import styles from './Counter.module.css'
 
 // const [state, setState] = useState(initialState);
+// El primer valor es el dato que queremos leer.
+//El segundo valor es la función que usamos para modificarlo.
+
 
 function Counter() {
 
