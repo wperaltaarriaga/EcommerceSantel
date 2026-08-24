@@ -30,8 +30,7 @@ function ProductCard() {
 
       <button
         className={esFavorito ? styles.favActivo : styles.favInactivo}
-        onClick={toggleFavorite}
-      >
+        onClick={toggleFavorite}>
         {esFavorito ? '❤️ Favorito' : '🤍 Agregar a favoritos'}
       </button>
     </article>
