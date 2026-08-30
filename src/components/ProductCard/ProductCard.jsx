@@ -1,7 +1,10 @@
 import { useState } from "react"
 import styles from './ProductCard.module.css'
+import { useEffect } from 'react';
+
 
 function ProductCard() {
+
   const [cantidad, setCantidad] = useState(1)
   const [esFavorito, setEsFavorito] = useState(false)
 
@@ -19,7 +22,7 @@ function ProductCard() {
 
   return (
     <article className={styles.article}>
-      <h2>Remera React</h2>
+      <h2>Mate Grande</h2>
       <p>Precio: $12000</p>
 
       <div className={styles.btns}>

@@ -1,0 +1,49 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-bottom: 1px solid #ececec;
+  }
+  
+  .brand {
+    display: flex;
+    align-items: center;
+  }
+  
+  .brandName {
+    font-family: 'pinyon-script', cursive;
+    font-size: 32px;
+    font-weight: 400;
+    color: #111;
+    letter-spacing: 0.5px;
+  }
+  
+  .categorias {
+    display: flex;
+    list-style: none;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .categoriaItem {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.15s ease;
+  }
+  
+  .categoriaItem:hover {
+    color: #111;
+  }
+  
+  @media (max-width: 640px) {
+    .categorias {
+      display: none;
+    }
+  }
