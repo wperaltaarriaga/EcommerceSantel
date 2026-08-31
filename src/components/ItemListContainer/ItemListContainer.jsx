@@ -10,10 +10,12 @@ function ItemListContainer({ greeting }) {
     console.log('useEffect ejecutado')
 
     const productosFicticios = [
-      { id: 1, name: 'Mate Imperial', price: 15000 },
-      { id: 2, name: 'Mate Camionero', price: 9500 },
-      { id: 3, name: 'Bombilla de Alpaca', price: 6000 },
-      { id: 4, name: 'Yerbera de Cuero', price: 11000 },
+      { id: 1, nombre: 'Mate Chico', precio: 15000, categoria: 'Mates', imagen:'/mateChico.jpg' },
+      { id: 2, nombre: 'Mate Mediano', precio: 9500, categoria: 'Mates', imagen: '/mateMed.jpg'},
+      { id: 3, nombre: 'Bombilla', precio: 6000, categoria: 'Bombillas', imagen: '/bombilla.jpg' },
+      { id: 4, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/despol1.jpg' },
+      { id: 5, nombre: 'Mate Grande', precio: 13500, categoria: 'Ofertas', imagen: '/mateGrande.jpg' },
+      { id: 6, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/despol2.jpg' },
     ]
 
     const timer = setTimeout(() => {
@@ -21,6 +23,14 @@ function ItemListContainer({ greeting }) {
       setLoading(false)
     }, 2000)
 
+    // Array de dependencias vacío ([]): este efecto simula una petición
+    // inicial a una API y debe ejecutarse UNA sola vez, al montar el
+    // componente — no en cada re-render. Si se omitiera el array (o se
+    // pusiera sin corchetes), el efecto se dispararía después de cada
+    // render; y como adentro cambiamos el estado (setItems/setLoading),
+    // cada cambio de estado provocaría un nuevo render, que a su vez
+    // volvería a disparar el efecto, generando un bucle infinito de
+    // setTimeouts apilándose uno atrás de otro.
     return () => clearTimeout(timer)
   }, [])
 

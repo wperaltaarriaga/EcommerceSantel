@@ -1,22 +1,29 @@
+import { useState } from 'react'
 import styles from './NavBar.module.css'
 import CartWidget from '../CartWidget/CartWidget'
 
 const categorias = ['Mates', 'Bombillas', 'Despolvilladores', 'Ofertas']
 
 function NavBar() {
+  const [categoriaActiva, setCategoriaActiva] = useState('Mates')
+
   return (
     <nav className={styles.nav}>
       <div className={styles.brand}>
         <h1 className={styles.brandName}>Santel Mates</h1>
       </div>
 
-      <ul className={styles.categorias}>
+      <div className={styles.pillNav}>
         {categorias.map((categoria) => (
-          <li key={categoria} className={styles.categoriaItem}>
+          <button
+            key={categoria}
+            className={`${styles.pillItem} ${categoria === categoriaActiva ? styles.pillActive : ''}`}
+            onClick={() => setCategoriaActiva(categoria)}
+          >
             {categoria}
-          </li>
+          </button>
         ))}
-      </ul>
+      </div>
 
       <CartWidget cantidad={3} />
     </nav>
