@@ -10,12 +10,12 @@ function ItemListContainer({ greeting }) {
     console.log('useEffect ejecutado')
 
     const productosFicticios = [
-      { id: 1, nombre: 'Mate Chico', precio: 15000, categoria: 'Mates', imagen:'/mateChico.jpg' },
-      { id: 2, nombre: 'Mate Mediano', precio: 9500, categoria: 'Mates', imagen: '/mateMed.jpg'},
-      { id: 3, nombre: 'Bombilla', precio: 6000, categoria: 'Bombillas', imagen: '/bombilla.jpg' },
-      { id: 4, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/despol1.jpg' },
-      { id: 5, nombre: 'Mate Grande', precio: 13500, categoria: 'Ofertas', imagen: '/mateGrande.jpg' },
-      { id: 6, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/despol2.jpg' },
+      { id: 1, nombre: 'Mate Chico', precio: 15000, categoria: 'Mates', imagen:'/imagenes/mateChico.jpg' },
+      { id: 2, nombre: 'Mate Mediano', precio: 9500, categoria: 'Mates', imagen: '/imagenes/mateMed.jpg'},
+      { id: 3, nombre: 'Bombilla', precio: 6000, categoria: 'Bombillas', imagen: '/imagenes/bombilla.jpg' },
+      { id: 4, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/imagenes/despol1.jpg' },
+      { id: 5, nombre: 'Mate Grande', precio: 13500, categoria: 'Ofertas', imagen: '/imagenes/mateGrande.jpg' },
+      { id: 6, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/imagenes/despol2.jpg' },
     ]
 
     const timer = setTimeout(() => {
