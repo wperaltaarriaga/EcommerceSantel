@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import styles from './ItemListContainer.module.css'
+import ItemList from '../ItemList/ItemList'
 
 function ItemListContainer({ greeting }) {
   const [items, setItems] = useState([])
@@ -9,10 +10,10 @@ function ItemListContainer({ greeting }) {
     console.log('useEffect ejecutado')
 
     const productosFicticios = [
-      { id: 1, name: 'Mate Imperial' },
-      { id: 2, name: 'Mate Camionero' },
-      { id: 3, name: 'Bombilla de Alpaca' },
-      { id: 4, name: 'Yerbera de Cuero' },
+      { id: 1, name: 'Mate Imperial', price: 15000 },
+      { id: 2, name: 'Mate Camionero', price: 9500 },
+      { id: 3, name: 'Bombilla de Alpaca', price: 6000 },
+      { id: 4, name: 'Yerbera de Cuero', price: 11000 },
     ]
 
     const timer = setTimeout(() => {
@@ -20,33 +21,30 @@ function ItemListContainer({ greeting }) {
       setLoading(false)
     }, 2000)
 
-    // Limpieza: si el componente se desmonta antes de que termine
-    // el timeout, cancelamos el timer para evitar actualizar estado
-    // en un componente que ya no existe.
     return () => clearTimeout(timer)
-
-    // Array de dependencias vacío ([]): queremos que este efecto se
-    // ejecute UNA sola vez, al montar el componente, simulando una
-    // petición inicial a una API 
   }, [])
 
   return (
-    <section className={styles.hero}>
-      <div className={styles.overlay} />
-      <div className={styles.content}>
-        <h2 className={styles.greeting}>{greeting}</h2>
-
-        {loading ? (
-          <p className={styles.subtext}>Cargando productos...</p>
-        ) : (
+    <>
+      <section className={styles.hero}>
+        <div className={styles.overlay} />
+        <div className={styles.content}>
+          <h2 className={styles.greeting}>{greeting}</h2>
           <p className={styles.subtext}>
-            {items.length} productos disponibles: {items.map(i => i.name).join(', ')}
+            Mates artesanales, hechos a mano, para tu ritual de todos los días.
           </p>
-        )}
+          <button className={styles.cta}>Ver productos</button>
+        </div>
+      </section>
 
-        <button className={styles.cta}>Ver productos</button>
-      </div>
-    </section>
+      <section className={styles.productsSection}>
+        {loading ? (
+          <p className={styles.loadingText}>Cargando productos...</p>
+        ) : (
+          <ItemList items={items} />
+        )}
+      </section>
+    </>
   )
 }
 

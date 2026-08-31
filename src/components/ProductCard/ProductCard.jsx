@@ -1,10 +1,7 @@
 import { useState } from "react"
 import styles from './ProductCard.module.css'
-import { useEffect } from 'react';
 
-
-function ProductCard() {
-
+function ProductCard({ item }) {
   const [cantidad, setCantidad] = useState(1)
   const [esFavorito, setEsFavorito] = useState(false)
 
@@ -22,8 +19,8 @@ function ProductCard() {
 
   return (
     <article className={styles.article}>
-      <h2>Mate Grande</h2>
-      <p>Precio: $12000</p>
+      <h2>{item.name}</h2>
+      <p>Precio: ${item.price.toLocaleString('es-AR')}</p>
 
       <div className={styles.btns}>
         <button className={styles.button} onClick={restarCantidad}>-</button>

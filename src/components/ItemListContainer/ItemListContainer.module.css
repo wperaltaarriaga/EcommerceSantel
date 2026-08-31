@@ -8,7 +8,7 @@
   border-radius: 24px;
   margin: 24px;
   overflow: hidden;
-  background-image: url('/Users/macbook/Desktop/mi-ecommerce/public/hero/hero-mate.jpg');
+  background-image: url('/hero/hero-mate.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -16,11 +16,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(20, 20, 30, 0.55) 0%,
-    rgba(20, 20, 30, 0.75) 100%
-  );
+  background: linear-gradient(180deg, rgba(20, 20, 30, 0.55) 0%, rgba(20, 20, 30, 0.75) 100%);
 }
 
 .content {
@@ -42,11 +38,6 @@
   margin: 0 0 24px;
 }
 
-.greeting em {
-  font-style: italic;
-  font-weight: 800;
-}
-
 .subtext {
   font-size: 17px;
   color: #e8e8e8;
@@ -64,12 +55,16 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.15s ease, background-color 0.15s ease;
 }
 
-.cta:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-1px);
+.productsSection {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.loadingText {
+  font-size: 16px;
+  color: #888;
 }
 
 @media (max-width: 640px) {
