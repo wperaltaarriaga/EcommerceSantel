@@ -16,7 +16,7 @@ function ItemListContainer({ greeting, categoriaActiva, busqueda }) {
     // limpieza que React espera).
     const fetchProductos = async () => {
       try {
-        const response = await fetch('https://fakestoreapi.com/products')
+        const response = await fetch(import.meta.env.VITE_API_URL)
 
         // fetch() NO lanza error automáticamente ante un 404 o 500 —
         // solo falla si hay un problema de red (sin conexión, dominio
