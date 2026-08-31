@@ -1,12 +1,9 @@
-import { useState } from 'react'
 import styles from './NavBar.module.css'
 import CartWidget from '../CartWidget/CartWidget'
 
-const categorias = ['Mates', 'Bombillas', 'Despolvilladores', 'Ofertas']
+const categorias = ['Todos', 'Mates', 'Bombillas', 'Despolvilladores', 'Ofertas']
 
-function NavBar() {
-  const [categoriaActiva, setCategoriaActiva] = useState('Mates')
-
+function NavBar({ categoriaActiva, setCategoriaActiva, busqueda, setBusqueda }) {
   return (
     <nav className={styles.nav}>
       <div className={styles.brand}>
@@ -25,7 +22,16 @@ function NavBar() {
         ))}
       </div>
 
-      <CartWidget cantidad={3} />
+      <div className={styles.rightSide}>
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          className={styles.searchInput}
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+        <CartWidget cantidad={3} />
+      </div>
     </nav>
   )
 }

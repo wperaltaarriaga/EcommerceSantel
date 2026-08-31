@@ -2,37 +2,69 @@ import { useState, useEffect } from 'react'
 import styles from './ItemListContainer.module.css'
 import ItemList from '../ItemList/ItemList'
 
-function ItemListContainer({ greeting }) {
+function ItemListContainer({ greeting, categoriaActiva, busqueda }) {
   const [items, setItems] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     console.log('useEffect ejecutado')
 
-    const productosFicticios = [
-      { id: 1, nombre: 'Mate Chico', precio: 15000, categoria: 'Mates', imagen:'/imagenes/mateChico.jpg' },
-      { id: 2, nombre: 'Mate Mediano', precio: 9500, categoria: 'Mates', imagen: '/imagenes/mateMed.jpg'},
-      { id: 3, nombre: 'Bombilla', precio: 6000, categoria: 'Bombillas', imagen: '/imagenes/bombilla.jpg' },
-      { id: 4, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/imagenes/despol1.jpg' },
-      { id: 5, nombre: 'Mate Grande', precio: 13500, categoria: 'Ofertas', imagen: '/imagenes/mateGrande.jpg' },
-      { id: 6, nombre: 'Despolvillador', precio: 11000, categoria: 'Despolvilladores', imagen: '/imagenes/despol2.jpg' },
-    ]
+    // Definimos una función asincrónica adentro del efecto porque el
+    // callback que recibe useEffect no puede ser async directamente
+    // (si lo fuera, devolvería una Promise en vez de la función de
+    // limpieza que React espera).
+    const fetchProductos = async () => {
+      try {
+        const response = await fetch('https://fakestoreapi.com/products')
 
-    const timer = setTimeout(() => {
-      setItems(productosFicticios)
-      setLoading(false)
-    }, 2000)
+        // fetch() NO lanza error automáticamente ante un 404 o 500 —
+        // solo falla si hay un problema de red (sin conexión, dominio
+        // inexistente, etc). Por eso hay que revisar response.ok a mano
+        // y forzar el error nosotros si el servidor respondió mal.
+        if (!response.ok) {
+          throw new Error(`Error al cargar productos: ${response.status}`)
+        }
 
-    // Array de dependencias vacío ([]): este efecto simula una petición
-    // inicial a una API y debe ejecutarse UNA sola vez, al montar el
-    // componente — no en cada re-render. Si se omitiera el array (o se
-    // pusiera sin corchetes), el efecto se dispararía después de cada
-    // render; y como adentro cambiamos el estado (setItems/setLoading),
-    // cada cambio de estado provocaría un nuevo render, que a su vez
-    // volvería a disparar el efecto, generando un bucle infinito de
-    // setTimeouts apilándose uno atrás de otro.
-    return () => clearTimeout(timer)
+        const data = await response.json()
+
+        // La Fake Store API devuelve title/price/image/category, pero
+        // nuestros componentes (ProductCard, ItemList) esperan
+        // nombre/precio/imagen/categoria. Mapeamos acá para no tener
+        // que tocar el resto de los componentes ya armados.
+        const productosMapeados = data.map((producto) => ({
+          id: producto.id,
+          nombre: producto.title,
+          precio: producto.price,
+          imagen: producto.image,
+          categoria: producto.category,
+        }))
+
+        setItems(productosMapeados)
+      } catch (err) {
+        setError(err.message)
+      } finally {
+        // finally corre siempre, haya éxito o error — así garantizamos
+        // que isLoading pase a false en ambos casos, sin duplicar la
+        // línea en el try y en el catch.
+        setIsLoading(false)
+      }
+    }
+
+    fetchProductos()
+
+    // Array de dependencias vacío ([]): el efecto debe ejecutarse una
+    // sola vez, al montar el componente, para hacer la petición inicial
+    // a la API. Si se omitiera el array, el efecto se dispararía en
+    // cada render; y como dentro de él actualizamos el estado
+    // (setItems/setIsLoading/setError), cada actualización generaría un
+    // nuevo render, que volvería a disparar el efecto —entrando en un
+    // bucle infinito de peticiones a la API.
   }, [])
+
+  const itemsFiltrados = items
+    .filter((item) => categoriaActiva === 'Todos' || item.categoria === categoriaActiva)
+    .filter((item) => item.nombre.toLowerCase().includes(busqueda.toLowerCase()))
 
   return (
     <>
@@ -48,10 +80,14 @@ function ItemListContainer({ greeting }) {
       </section>
 
       <section className={styles.productsSection}>
-        {loading ? (
+        {isLoading ? (
           <p className={styles.loadingText}>Cargando productos...</p>
+        ) : error ? (
+          <p className={styles.errorText}>⚠️ {error}</p>
+        ) : itemsFiltrados.length === 0 ? (
+          <p className={styles.loadingText}>No se encontraron productos.</p>
         ) : (
-          <ItemList items={items} />
+          <ItemList items={itemsFiltrados} />
         )}
       </section>
     </>
